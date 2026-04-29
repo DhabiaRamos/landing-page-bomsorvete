@@ -13,5 +13,7 @@ function enviarFormPedido(e){
         formPedido.value
     ]
     
+    localStorage.setItem("pedido", JSON.stringify(usuarioPedido))
     formPedido.reset()
 }
+

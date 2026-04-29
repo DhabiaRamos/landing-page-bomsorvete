@@ -13,5 +13,6 @@ function enviarFormContato(e) {
         info.value
     ]
 
+    localStorage.setItem("contato", JSON.stringify(usuarioContato))
     formContato.reset()
 }
