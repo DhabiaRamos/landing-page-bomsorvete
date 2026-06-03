@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+    <link rel="shortcut icon" href="/static/img/logo.png" type="image/x-icon">
+    <title>Produtos</title>
+</head>
+
+<body class="bg-[#F75281] min-h-screen scroll-smooth min-w-screen">
+    <!-- HEADER DO SITE  -->
+    <header class="bg-sky-50 flex flex-col md:flex-row justify-between items-center p-4 md:p-8 shadow-lg gap-4">
+        
+        <div class="flex items-center">
+            <img src="/static/img/logo.png" alt="" class="w-12 md:w-24">
+            <p class="text-[#F75281] text-center text-2xl font-bold">BomSorvete</p>
+        </div>
+
+        <nav class="gap-2 md:flex lg:gap-10">
+            <a href="/" class="hidden md:block text-[20px] text-slate-500 font-bold hover:text-slate-900 lg:text-2xl">Inicio</a>
+            <a href="/#produtos" class="hidden md:block text-[20px] text-slate-500 font-bold hover:text-slate-900 lg:text-2xl">Produtos</a>
+            <a href="/admin" class="text-[20px] text-slate-500 font-bold hover:text-slate-900 lg:text-2xl">Admin</a>
+        </nav>
+
+        <a href="/" class="bg-[#ff779d] text-2xl text-sky-50 text-center p-4 rounded-4xl w-64 cursor-pointer hover:bg-[#F75281] lg:text-2xl lg:w-60 md:w-52 md:text-[15px]">Voltar</a>
+    </header>
+
+    <main>
+        <!-- Parte de fazer o pedido  -->
+        <section id="pedidoSection" class="bg-slate-100 flex flex-col justify-center items-center p-6 md:p-20">
+            <h1 class="text-[#790010] text-5xl font-bold text-center mb-4">Fazer pedido</h1>
+
+            <form action="" id="formularioPedido" class="flex flex-col gap-4 bg-[#ff779d] rounded-2xl p-8  w-full md:w-10/12 lg:w-1/2">
+
+                <label for="nome" class="text-slate-100 text-2xl font-bold">Nome</label>
+                <input type="text" name="nome" id="nome" class="border-b-2 border-slate-200 focus:outline focus:outline-slate-200 text-slate-100 rounded-lg p-2" placeholder="João">
+
+                <label for="tel" class="text-slate-100 text-2xl font-bold">Telefone</label>
+                <input type="tel" name="tel" id="tel" class="border-b-2 border-slate-200 focus:outline focus:outline-slate-200 text-slate-100 rounded-lg p-2" placeholder="3499999999">
+
+                <label for="pedido" class="text-slate-100 text-2xl font-bold">Pedido</label>
+                <input type="text" name="pedido" id="pedido" class="border-b-2 border-slate-200 focus:outline focus:outline-slate-200 text-slate-100 rounded-lg p-2" placeholder="Milkshake de chocolate">
+
+                <input type="submit" value="Enviar" class="border-2 border-slate-200 rounded-2xl text-slate-100 text-2xl p-2 cursor-pointer hover:bg-[#F75281]">
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER DO SITE  -->
+    <footer class="flex flex-col md:flex-row justify-around items-center p-6 gap-8">
+        <div class="flex flex-col items-center md:flex-row mb-5">
+            <img src="/static/img/logo.png" alt="" class="w-24">
+            <p class="text-slate-100 text-2xl font-bold">BomSorvete</p>
+        </div>
+
+        <p class="text-[#ff83a6] mb-5">©2026 por BomSorvete Ltda.</p>
+
+        <div class="flex flex-col justify-center items-center gap-2">
+            <div class="flex justify-center items-center gap-2">
+                <img src="/static/img/icon-zap.png" alt="" class="w-6">
+                <p class="text-slate-100">(99) 99999-9999</p>
+            </div>
+
+            <div class="flex justify-center items-center gap-2">
+                <img src="/static/img/icon-insta.png" alt="" class="w-6">
+                <p class="text-slate-100">@BomSorvete</p>
+            </div>
+                
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='scriptProducts.js') }}"></script>
+</body>
+</html>

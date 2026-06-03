@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+    <title>Painel Administrativo</title>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <!-- HEADER -->
+
+    <header class="bg-[#F75281] flex flex-col md:flex-row justify-between items-center p-4 md:p-8 shadow-lg gap-4">
+
+        <div class="flex items-center">
+            <img src="/static/img/logo.png" class="w-12 md:w-24">
+            <p class="text-slate-100 text-2xl font-bold">
+                BomSorvete
+            </p>
+        </div>
+
+        <div class="flex gap-5">
+
+            <a href="/"
+            class="bg-[#ff779d] w-20 text-center text-slate-100 p-2 rounded-lg hover:bg-[#F75281]">
+                Site
+            </a>
+
+            <a href="/logout"
+            class="bg-red-600 w-20 text-center text-slate-100 p-2 rounded-lg hover:bg-[#F75281]">
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section class="p-10">
+
+        <h1 class="text-[#F75281] text-4xl md:text-5xl font-bold text-center mb-10">
+            Painel Administrativo
+        </h1>
+
+        <!-- CARDS -->
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10">
+
+            <div class="bg-slate-200 mb-5 rounded-2xl p-6 shadow-lg">
+
+                <h2 class="text-slate-600">
+                    Total Pedidos
+                </h2>
+
+                <p class="text-4xl font-bold text-slate-600">
+                    {{ total_pedidos }}
+                </p>
+
+            </div>
+
+            <div class="bg-slate-200 mb-5 rounded-2xl p-6 shadow-lg">
+
+                <h2 class="text-yellow-500">
+                    Pendentes
+                </h2>
+
+                <p class="text-4xl font-bold text-yellow-500">
+                    {{ pendentes }}
+                </p>
+
+            </div>
+
+            <div class="bg-slate-200 mb-5 rounded-2xl p-6 shadow-lg">
+
+                <h2 class="text-blue-500">
+                    Em Produção
+                </h2>
+
+                <p class="text-4xl font-bold text-blue-500">
+                    {{ producao }}
+                </p>
+
+            </div>
+
+            <div class="bg-slate-200 mb-5 rounded-2xl p-6 shadow-lg">
+
+                <h2 class="text-green-500">
+                    Entregues
+                </h2>
+
+                <p class="text-4xl font-bold text-green-500">
+                    {{ entregues }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- TABELA -->
+
+        <div class="hidden md:block bg-slate-200 rounded-2xl shadow-lg p-8 overflow-x-auto">
+
+            <h2 class="text-3xl font-bold text-[#790010] mb-5">
+                Pedidos Recebidos
+            </h2>
+
+            <table class="w-full min-w-[1200px]">
+
+                <thead>
+
+                    <tr class="bg-[#F75281] text-slate-100">
+
+                        <th class="p-3 text-left">ID</th>
+                        <th class="p-3 text-left">Cliente</th>
+                        <th class="p-3 text-left">Telefone</th>
+                        <th class="p-3 text-left">Pedido</th>
+                        <th class="p-3 text-left">Status</th>
+                        <th class="p-3 text-left">Ações</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for pedido in pedidos %}
+
+                    <tr class="border-b hover:bg-pink-50">
+
+                        <td class="p-4 text-gray-800 font-medium">
+                            #{{ pedido[0] }}
+                        </td>
+
+                        <td class="p-4 text-gray-800 font-medium">
+                            {{ pedido[1] }}
+                        </td>
+
+                        <td class="p-4 text-gray-800 font-medium">
+                            {{ pedido[2] }}
+                        </td>
+
+                        <td class="p-4 text-gray-800 font-medium">
+                            {{ pedido[3] }}
+                        </td>
+
+                        <td class="p-4 text-gray-800 font-medium">
+
+                            {% if pedido[4] == "Pendente" %}
+                                <span class="bg-yellow-100 text-slate-500 px-3 py-1 rounded-full">
+                                    Pendente
+                                </span>
+
+                            {% elif pedido[4] == "Produção" %}
+                                <span class="bg-blue-100 text-slate-500 px-3 py-1 rounded-full">
+                                    Produção
+                                </span>
+
+                            {% elif pedido[4] == "Cancelado" %}
+                                <span class="bg-blue-100 text-slate-500 px-3 py-1 rounded-full">
+                                    Cancelado
+                                </span>
+
+                            {% elif pedido[4] == "Pronto" %}
+                                <span class="bg-green-100 text-slate-500 px-3 py-1 rounded-full">
+                                    Pronto
+                                </span>
+
+                            {% elif pedido[4] == "Entregue" %}
+                                <span class="bg-green-100 text-slate-500 px-3 py-1 rounded-full">
+                                    Entregue
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td class="p-4">
+
+                            <div class="flex flex-col gap-2 min-w-[180px]">
+
+                                <a href="/pedido/{{ pedido[0] }}"
+                                class="bg-[#F75281] text-slate-100 text-center rounded-lg font-semibold shadow hover:scale-105 transition">
+
+                                    Ver Pedido
+
+                                </a>
+
+                                
+                                <a href="/arquivar/{{ pedido[0] }}"
+                                class="bg-[#F75281] text-slate-100 text-center rounded-lg font-semibold shadow hover:scale-105 transition">
+
+                                    Arquivar
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- TABELA NO CELULAR  -->
+
+        <div class="md:hidden flex flex-col gap-4">
+
+        {% for pedido in pedidos %}
+
+        <div class="bg-slate-200 rounded-2xl shadow p-5">
+
+            <div class="flex justify-between items-center mb-3">
+
+                    <h3 class="font-bold text-lg text-[#790010]">
+                        Pedido #{{ pedido[0] }}
+                    </h3>
+
+                    {% if pedido[4] == "Pendente" %}
+                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
+                            Pendente
+                        </span>
+
+                    {% elif pedido[4] == "Produção" %}
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                            Produção
+                        </span>
+
+                    {% elif pedido[4] == "Pronto" %}
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                            Pronto
+                        </span>
+
+                    {% elif pedido[4] == "Entregue" %}
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                            Entregue
+                        </span>
+                    {% endif %}
+
+                </div>
+
+                <div class="space-y-2 text-sm">
+
+                    <p>
+                        <strong>Cliente:</strong>
+                        {{ pedido[1] }}
+                    </p>
+
+                    <p>
+                        <strong>Telefone:</strong>
+                        {{ pedido[2] }}
+                    </p>
+
+                    <p>
+                        <strong>Pedido:</strong>
+                        {{ pedido[3] }}
+                    </p>
+
+                </div>
+
+                <div class="flex flex-col gap-2 mt-4">
+
+                    <a href="/pedido/{{ pedido[0] }}"
+                    class="bg-[#F75281] text-slate-100 text-center rounded-lg font-semibold">
+
+                        Ver Pedido
+
+                    </a>
+
+                    <a href="/arquivar/{{ pedido[0] }}"
+                    class="bg-slate-100 text-white text-center rounded-lg font-semibold">
+
+                        Arquivar
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</body>
+</html>
