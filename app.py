@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
 from dotenv import load_dotenv
 from machine_learning.recomendacao import recomendar
@@ -7,8 +8,6 @@ from machine_learning.interpretador import interpretar_pedido
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
-
-import os
 
 SENHA_ADMIN = os.getenv(
     "SENHA_ADMIN"
@@ -449,8 +448,6 @@ def arquivar_pedido(pedido_id):
 # =========================
 # INICIAR SERVIDOR
 # =========================
-
-import os
 
 if __name__ == "__main__":
     app.run(
