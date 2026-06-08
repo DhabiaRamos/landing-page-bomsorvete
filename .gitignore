@@ -5,9 +5,12 @@ venv/
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Banco de dados
 database.db
+*.db
 
 # Variáveis de ambiente
 .env
@@ -18,3 +21,12 @@ database.db
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Pytest
+.pytest_cache/
+
+# Arquivos temporários
+*.tmp

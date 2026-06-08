@@ -4,9 +4,54 @@ from dotenv import load_dotenv
 from machine_learning.recomendacao import recomendar
 from machine_learning.interpretador import interpretar_pedido
 
+# Função criar tabela:
+
+def criar_tabelas():
+
+    conexao = sqlite3.connect("database.db")
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS contatos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        email TEXT NOT NULL,
+        telefone TEXT NOT NULL,
+        mensagem TEXT NOT NULL
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS pedidos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        telefone TEXT NOT NULL,
+        pedido_original TEXT NOT NULL,
+        status TEXT DEFAULT 'Pendente',
+        arquivado INTEGER DEFAULT 0
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS itens_pedido (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        pedido_id INTEGER NOT NULL,
+        categoria TEXT,
+        sabor TEXT,
+        quantidade INTEGER,
+        volume INTEGER,
+        FOREIGN KEY (pedido_id)
+        REFERENCES pedidos(id)
+    )
+    """)
+
+    conexao.commit()
+    conexao.close()
+
 load_dotenv()
 app = Flask(__name__)
-app.secret_key = "aindanaoseiPERAAIII232"
+criar_tabelas()
+app.secret_key = os.getenv("SECRET_KEY")
 
 import os
 
