@@ -2,7 +2,7 @@ import sqlite3
 import os
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
 from dotenv import load_dotenv
-from machine_learning.recomendacao import recomendar
+from machine_learning.recomendacao_ml import recomendar
 from machine_learning.interpretador import interpretar_pedido
 
 load_dotenv()
@@ -12,6 +12,11 @@ app.secret_key = os.getenv("SECRET_KEY")
 SENHA_ADMIN = os.getenv(
     "SENHA_ADMIN"
 )
+
+@app.route("/teste")
+def teste():
+    resultado = recomendar("João")
+    return str(resultado)
 
 # Função para criar o banco no railway
 
