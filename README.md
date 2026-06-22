@@ -271,7 +271,7 @@ não são armazenadas diretamente no código-fonte.
 ## Clonar o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/bomsorvete.git
+git clone https://github.com/DhabiaRamos/landing-page-bomsorvete.git
 ```
 
 ## Acessar a Pasta
